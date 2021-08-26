@@ -12,11 +12,11 @@ using namespace std;
 int main()
 {
 	fstream data;
-	data.open("D:/studia/programy_mentoringowe/ITforShe/rsa/test.txt", ios::in | ios::binary);
+	data.open("D:/studia/programy_mentoringowe/IT_for_She/test.txt", ios::in);
 	fstream encryptFile;
-	encryptFile.open("D:/studia/programy_mentoringowe/ITforShe/rsa/encrypt.txt", ios::in | ios::out | ios::trunc);
+	encryptFile.open("D:/studia/programy_mentoringowe/IT_for_She/encrypt.txt", ios::in | ios::out | ios::trunc);
 	fstream decryptFile;
-	decryptFile.open("D:/studia/programy_mentoringowe/ITforShe/rsa/decrypt.txt", ios::in | ios::out | ios::trunc);
+	decryptFile.open("D:/studia/programy_mentoringowe/IT_for_She/decrypt.txt", ios::in | ios::out | ios::trunc);
 
 	if (!data.good())
 		cout << "not good 1" << endl;

@@ -70,7 +70,7 @@ public:
 	}
 
 	static long long randomNumber() {
-		long long a = (static_cast<long long>(rand()) / RAND_MAX) * 32766 + 1;	//16bitowa    < 2^(n-1) + 1; 2^n - 1> 
+		long long a = static_cast<long long>(rand()) % 32767 + 32769;	//16bitowa    < 2^(n-1) + 1; 2^n - 1> 
 		if (a % 2 == 0)
 			a--;
 		return a;

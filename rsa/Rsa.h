@@ -20,9 +20,6 @@ class Rsa {
 
 public:
 	Rsa(string c) {
-		//p = a;
-		//q = b;
-		//msgToCode= c;
 		msg = c;
 
 		srand(time(0));
@@ -65,7 +62,7 @@ public:
 	vector<long long> encrypt()	
 	{
 		long long single;
-		for (int i = 0; i < msg.length() - 1; i++)
+		for (int i = 0; i < msg.length(); i++)
 		{
 			single = (long long)msg[i];
 			msgEncode.push_back( Maths::power(single, e, n));	// msg^e % n  -> (msgToCode% n)^e % n
