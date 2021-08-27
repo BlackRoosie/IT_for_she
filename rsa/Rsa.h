@@ -28,8 +28,7 @@ public:
 		while (!checkP)
 		{
 			p = Maths::randomNumber();
-			checkP = Maths::checkingDivisionByFirstPrimes(p, firstPrimes);
-			if (!checkP)
+			if (Maths::checkingDivisionByFirstPrimes(p, firstPrimes) == false)
 			{
 				checkP = Maths::MillerRabinTest(p);
 			}
@@ -38,15 +37,14 @@ public:
 		while (!checkQ)
 		{
 			q = Maths::randomNumber();
-			checkQ = Maths::checkingDivisionByFirstPrimes(q, firstPrimes);
-			if (!checkQ)
+			if (Maths::checkingDivisionByFirstPrimes(q, firstPrimes) == false)
 			{
 				checkQ = Maths::MillerRabinTest(q);
 			}
 		}
 
-		//p = 11;
-		//q = 13;
+		//p = 8069;
+		//q = 9929;
 
 		n = p * q;
 		fi = (p - 1) * (q - 1);
