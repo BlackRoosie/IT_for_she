@@ -13,14 +13,14 @@ class Rsa {
 
 	long long p, q, n, e, fi, d = 0;
 	vector<long long> msgEncode;
-	string msg, msgDecode = "";
+	string msgDecode = "";
 	bool checkP = false, checkQ = false;
 	vector<long long> firstPrimes;
 
 
 public:
-	Rsa(string c) {
-		msg = c;
+	Rsa() {		//string c
+		//msg = c;
 
 		srand(time(0));
 		firstPrimes = Maths::generateFirstPrimes(1000);
@@ -57,24 +57,44 @@ public:
 		}
 	}
 
-	vector<long long> encrypt()	
+	vector<long long> encrypt(istream& input, ostream& output)		//there is a problem with const istream
 	{
 		long long single;
-		for (int i = 0; i < msg.length(); i++)
+		char buf[3];
+		long long temp;
+
+		while (!input.eof())
 		{
-			single = (long long)msg[i];
-			msgEncode.push_back( Maths::power(single, e, n));	// msg^e % n  -> (msgToCode% n)^e % n
+			input.read(buf, 3);
+			//cout << buf << endl;
+			for (int i = 0; i < 3; i++)
+			{
+				if (buf[i] > 0)
+				{
+					single = (long long)buf[i];
+					temp = Maths::power(single, e, n);
+					output.write((const char *) &temp, sizeof(long long));
+					//msgEncode.push_back(Maths::power(single, e, n));	// msg^e % n  -> (msgToCode% n)^e % n
+					//output << msgEncode[i] << " ";			//THINK ABOUT IT -> if everything will be as 1 string
+
+				}
+				
+			}
 		}
-		
+
 		return msgEncode;
 	}
 
-	string decrypt()	//do poprawy! -> braæ zakodowan¹
+	string decrypt(istream& input, ostream& output)
 	{
-		for (int i = 0; i < msgEncode.size(); i++)
+		long long temp;
+		while (!input.eof())
 		{
-			msgDecode += (char)Maths::power(msgEncode[i], d, n);
+			input.read((char *) &temp, sizeof(long long));
+			msgDecode += (char)Maths::power(temp, d, n);
 		}
+
+		output << msgDecode;
 		return msgDecode;
 	}
 
@@ -84,7 +104,7 @@ public:
 	long long getE() { return e; }
 	long long getFi() { return fi; }
 	long long getD() { return d; }
-	string getMsg() { return msg; }
+	//string getMsg() { return msg; }
 	vector<long long> getMesgEncode() { return msgEncode; }
 	string getMsgDecode() { return msgDecode; }
 
