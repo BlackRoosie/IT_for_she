@@ -140,6 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Maths.cpp" />
+    <ClCompile Include="Rsa.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maths.h" />
