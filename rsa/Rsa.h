@@ -11,7 +11,7 @@ using namespace std;
 class Rsa {
 
 
-	long long p, q, n, e, fi, d = 0, dp, dq;
+	long long p, q, n, e, fi, d = 0;
 	vector<long long> msgEncode;
 	string msgDecode = "";
 	bool checkP = false, checkQ = false;
@@ -31,8 +31,7 @@ public:
 	long long getE();
 	long long getFi();
 	long long getD();
-	long long getDp();
-	long long getDq();
+
 	vector<long long> getMesgEncode();
 	string getMsgDecode();
 

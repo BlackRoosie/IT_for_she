@@ -55,27 +55,25 @@ long long inverseModulo(long long e, long long fi)
 
 long long crt(long long c, long long d, long long p, long long q)
 {
-	long long m, mp, mq, dp, dq, qinv, h ,temp, smth;
+	long long m, m1, m2, dp, dq, inv, h;
+
 	dp = d % (p - 1);
+	cout << "dp: " << dp << endl;
 	dq = d % (q - 1);
-	cout <<"dp: " << dp << '\t' << ":dq " << dq << endl;
-	mp = power(c, dp, p);
-	mq = power(c, dq, q);
-	cout <<"mp: " << mp << '\t' << "mq: " << mq << endl;
-
-
-
-	qinv = inverseModulo(q, p);
-	cout << "qinv: " << qinv << endl;
-
-	temp = mp - mq;
-	cout << "temp: " <<temp << endl;
-	h = (qinv * temp);
+	cout << "dq: " << dq << endl;
+	inv = inverseModulo(q, p);
+	cout << "inv: " << inv << endl;
+	m1 = power(c, dp, p);
+	cout << "m1: " << m1 << endl;
+	m2 = power(c, dq, q);
+	cout << "m2: " << m2 << endl;
+	h = (inv * (m1 - m2)) % p;
+	if (h < 0)
+		h += p;
 	cout << "h: " << h << endl;
-	smth = abs(h % p);
-	cout << "smth: " << smth << endl;
-	m = mq + q * h;
 
+	m = m2 + h * q;
+	cout << "m: " << m << endl;
 	return m;
 }
 
@@ -94,14 +92,6 @@ long long LCM(long long a, long long b)		//nwww
 
 int main()
 {
-	long long p, q;
-	//long long d = inverseModulo(65537, lcm(9816, 9906));
-	//cout << d << endl;
-	//long long china = crt(36076319, d, 9817, 9907);
-	//cout << china << endl;
-
-
-
 	//----------------------------------------------------------------------
 	fstream data;
 	data.open("D:/studia/programy_mentoringowe/IT_for_She/test.txt", ios::in);
@@ -127,9 +117,6 @@ int main()
 	cout << "e: " << test.getE() << endl;
 	cout << "d: " << test.getD() << endl;
 
-	cout << "dp: " << test.getDp() << endl;
-	cout << "dq: " << test.getDq() << endl;
-
 	cout << "-----encrypting-------------" << endl;
 	vector<long long> msgEncode = test.encrypt(data, encryptFile);
 	cout << msgEncode.size() << endl;
@@ -141,12 +128,6 @@ int main()
 	cout << "-----decrypting-------------" << endl;
 	string msgDecode = test.decrypt((istream&)encryptFile, (ostream&)decryptFile);
 	cout << msgDecode << endl;
-
-
-	//cout << "------------testing chinese theorem--------------" << endl;
-	//long long china = crt(36076319, test.getD(), test.getP(), test.getQ());
-	////long long china = crt(msgEncode[0], )
-	//cout << china << endl;
 
 
 	data.close();

@@ -142,3 +142,20 @@ long long Maths::GCD(long long  a, long long b)	//nwd
 
 	return a;
 }
+
+long long Maths::crt(long long c, long long d, long long p, long long q)
+{
+	long long m, m1, m2, dp, dq, inv, h;
+
+	dp = d % (p - 1);
+	dq = d % (q - 1);
+	inv = inverseModulo(q, p);
+	m1 = power(c, dp, p);
+	m2 = power(c, dq, q);
+	h = (inv * (m1 - m2)) % p;
+	if (h < 0)
+		h += p;
+
+	m = m2 + h * q;
+	return m;
+}

@@ -22,5 +22,7 @@ public:
 	static long long power(long long a, long long b, long long n);
 
 	static long long GCD(long long  a, long long b);
+
+	static long long crt(long long c, long long d, long long p, long long q);
 };
 

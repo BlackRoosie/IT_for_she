@@ -28,8 +28,7 @@ Rsa::Rsa() {
 			p++;
 	}
 
-	long long gcd = 0;
-	while (!checkQ && gcd != 2)
+	while (!checkQ)
 	{
 		if (Maths::checkingDivisionByFirstPrimes(q, firstPrimes) == false)
 		{
@@ -37,11 +36,23 @@ Rsa::Rsa() {
 		}
 		if (!checkQ)
 			q++;
-
-		gcd = Maths::GCD(p-1, q-1);
 	}
 
-	//test do china
+
+	//long long gcd = 0;
+	//while (!checkQ && gcd != 2)
+	//{
+	//	if (Maths::checkingDivisionByFirstPrimes(q, firstPrimes) == false)
+	//	{
+	//		checkQ = Maths::MillerRabinTest(q);
+	//	}
+	//	if (!checkQ)
+	//		q++;
+
+	//	gcd = Maths::GCD(p-1, q-1);
+	//}
+
+	//test to china
 	//p = 9817;
 	//q = 9907;
 
@@ -49,15 +60,15 @@ Rsa::Rsa() {
 	fi = (p - 1) * (q - 1);		
 
 	//eNumber();
-	e = 7;			//need to china
+	e = 65537;			//need to china
 	while (d == 0)
 	{
 		d = Maths::inverseModulo(e, fi);
 		//d = Maths::inverseModulo(e, 16206216);		//china
 	}
 
-	dp = d % (p - 1);
-	dq = d % (q - 1);
+	//dp = d % (p - 1);
+	//dq = d % (q - 1);
 }
 
 vector<long long> Rsa::encrypt(istream& input, ostream& output)		
@@ -66,11 +77,12 @@ vector<long long> Rsa::encrypt(istream& input, ostream& output)
 	const int buf_size = 10;
 	char buf[buf_size];
 	long long temp;
+	int r;
 
 	while (!input.eof())
-	{
-		input.read(buf, buf_size);
-		for (int i = 0; i < buf_size; i++)
+	{		
+		r = input.read(buf, buf_size).gcount();
+		for (int i = 0; i < r; i++)
 		{
 			if (buf[i] > 0)
 			{
@@ -89,13 +101,18 @@ vector<long long> Rsa::encrypt(istream& input, ostream& output)
 
 string Rsa::decrypt(istream& input, ostream& output)
 {
+	vector<long long> buf;
 	long long temp;
 	while (!input.eof())
 	{
 		input.read((char*)&temp, sizeof(long long));
-		msgDecode += (char)Maths::power(temp, d, n);
+		buf.push_back(temp);
+		
 		//msgDecode += (char)Maths::power(temp, d, p);
 	}
+	for(int i = 0; i < buf.size(); i++)
+		if (buf[i] != 0)
+			msgDecode += (char)Maths::crt(buf[i], d, p, q);
 
 	output << msgDecode;
 	return msgDecode;
@@ -107,8 +124,6 @@ long long Rsa::getN() { return n; }
 long long Rsa::getE() { return e; }
 long long Rsa::getFi() { return fi; }
 long long Rsa::getD() { return d; }
-long long Rsa::getDp() { return dp; }
-long long Rsa::getDq() { return dq; }
 vector<long long> Rsa::getMesgEncode() { return msgEncode; }
 string Rsa::getMsgDecode() { return msgDecode; }
 
