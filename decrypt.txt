@@ -1,1 +1,2 @@
-hej testujemy dluzszy tekst, co ty na to??
+hej testujemy dluzszy tekst, co ty na to?
+There are two types of SSL handshakes described as one-way SSL and two-way SSL (Mutual SSL). The difference between those two is that in one -way SSL, only the client validates the identity of the server whereas in two-way SSL, both server and client validate the identity of each other. Usually, when we browse an HTTPS website, one-way SSL is being used where only our browser (client) validates the identity of the website (server). Two-way SSL is mostly used in server to server communication where both parties need to validate the identity of each other.

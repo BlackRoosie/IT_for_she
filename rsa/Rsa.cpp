@@ -106,7 +106,8 @@ string Rsa::decrypt(istream& input, ostream& output)
 	while (!input.eof())
 	{
 		input.read((char*)&temp, sizeof(long long));
-		buf.push_back(temp);
+		if(!input.eof())
+			buf.push_back(temp);
 		
 		//msgDecode += (char)Maths::power(temp, d, p);
 	}
